@@ -152,7 +152,16 @@ function handleResults(){
     event.preventDefault();
     renderResult();
     console.log('`handleResults` ran');
-  })
+  });
+}
+function handleRestart(){
+  $('.answerForm').on('click', '.startBtn', function(event){
+    event.preventDefault();
+    qNum = 0;
+    score =0;
+    renderQuestion();
+    console.log('`handleRestart` ran');
+  });
 }
 
 //answer feedback
@@ -220,18 +229,14 @@ function renderResult(){
     $('.answerForm').html(`
       <div class="result">
         <p>Congratulations, you passed! You got ${score}/5 questions right!</p>
-        <div class="startQuiz">
           <button type="button" class="startBtn">Restart Quiz</button>
-        </div>
       </div>`);
   }
   else{
     $('.answerForm').html(`
       <div class="result">
         <p>Sorry, you failed! You got ${score}/5 questions right.</p>
-        <div class="startQuiz">
           <button type="button" class="startBtn">Restart Quiz</button>
-        </div>
       </div>`);
   }
   console.log('`renderResult` ran');
@@ -253,6 +258,7 @@ function createQuiz(){
   startQuiz();
   renderQuestion();
   handleSubmit();
+  handleRestart();
 }
 
 $(createQuiz);
