@@ -16,8 +16,8 @@ const questions = [
 function generateAnswerList(answers){
 }
 function renderQuestionText(){
-  //renders the question page
-  
+  return 
+
 }
 function handleAnswerSubmit(){
   $().on()
