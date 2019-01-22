@@ -19,23 +19,62 @@ const STORE = [
       'ans3',
       'ans4'
       ],
-    correctAns: 'ans4'}
+    correctAns: 'ans1'
+  },
+  {
+    question: 'Question 3?',
+    answers: [
+      'ans1',
+      'ans2',
+      'ans3',
+      'ans4'
+      ],
+    correctAns: 'ans1'
+  },
+  {
+    question: 'Question 4?',
+    answers: [
+      'ans1',
+      'ans2',
+      'ans3',
+      'ans4'
+      ],
+    correctAns: 'ans1'
+  },
+  {
+    question: 'Question 5?',
+    answers: [
+      'ans1',
+      'ans2',
+      'ans3',
+      'ans4'
+      ],
+    correctAns: 'ans1'
+  }
 ];
 
 let qNum = 0;
 let score = 0;
+let begun = false;
 
 //render question
 function renderQuestion(){
   $('.answerForm').html(genQuestion());
+  //console.log('`renderQuestion` ran');
 }
 
 //gen question html
 function genQuestion(){
-  if(qNum < STORE.length && qNum !== 0){
+  if(begun && qNum < STORE.length){
     return `
+    <div class="progress">
+      <ul>
+        <li>Question: <span class="qNum">${qNum + 1}</span>/5</li>
+        <li>Score: <span class="score">${score}</span></li>
+      </ul>
+    </div>
     <div class="question">
-      <h2>This is the question. What is the answer?</h2>
+      <h2>${STORE[qNum].question}</h2>
         <form class ="question-form">
           <label class="option">
             <input type="radio" value="${STORE[qNum].answers[0]}" name="answer" required>
@@ -61,55 +100,110 @@ function genQuestion(){
           </form>
       </div>`;
   }
-  else{
+  else if(begun && qNum === (STORE.length - 1)){
     renderResult();
     $('.qNum').text(5);
   }
+  //console.log('`genQuestion` ran');
 }
 
 //event handler
 function handleSubmit(){
-  $('.answerForm').on('submit', '.question-form',function(event){
+  $('.answerForm').on('submit', '.question-form', function(event){
     event.preventDefault();
     let selected = $('input:checked');
     let guess = selected.val();
-    // console.log(guess);
     let correctAnswer = `${STORE[qNum].correctAns}`;
-    // console.log(correctAnswer);
-    if(guess === correctAnswer){
-      answerFeedbackCorrect();
-      changeQNumber();
-      incScore();
+    if(qNum < 4){
+      if(guess === correctAnswer){
+        answerFeedbackCorrect();
+        incScore();
+      }
+      else{
+        answerFeedbackIncorrect();
+      }
+      qNum++;
     }
     else{
-      answerFeedbackIncorrect();
-      changeQNumber();
+      if(guess === correctAnswer){
+        lastAnswerFeedbackCorrect();
+        incScore();
+      }
+      else{
+        lastAnswerFeedbackIncorrect();
+      }
     }
+    console.log('`handleSubmit` ran');
   });
 }
+
+//event handler for answer pg
+function handleNextQ(){
+  $('.answerForm').on('click', '.nextQ', function(event){
+    event.preventDefault();
+    renderQuestion();
+    console.log('`handleNextQ` ran');
+  });
+}
+
+//event handler for final q
+function handleResults(){
+  $('.answerForm').on('click', '.resultBtn', function(event){
+    event.preventDefault();
+    renderResult();
+    console.log('`handleResults` ran');
+  })
+}
+
 //answer feedback
 function answerFeedbackCorrect(){
- let correctAns = `${STORE[qNum].correctAns}`;
- $('.answerForm').html(`
-   <div class="feedback>
+  let correctAns = `${STORE[qNum].correctAns}`;
+  $('.answerForm').html(`
+   <div class="feedback">
      <p>Correct!</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
+   handleNextQ();
+  console.log('`answerFeedbackCorrect` ran');
 }
 
 function answerFeedbackIncorrect(){
  let correctAns = `${STORE[qNum].correctAns}`;
  $('.answerForm').html(`
-   <div class="feedback>
+   <div class="feedback">
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
+   handleNextQ();
+   console.log('`answerFeedbackIncorrect` ran');
+}
+
+function lastAnswerFeedbackCorrect(){
+  let correctAns = `${STORE[qNum].correctAns}`;
+  $('.answerForm').html(`
+   <div class="feedback">
+     <p>Correct!</p>
+     <button type="button" class="resultBtn">View Results</button>
+   </div>`);
+   handleResults();
+  console.log('`lastAnswerFeedbackCorrect` ran');
+}
+
+function lastAnswerFeedbackIncorrect(){
+  let correctAns = `${STORE[qNum].correctAns}`;
+  $('.answerForm').html(`
+   <div class="feedback">
+     <p>Incorrect! The correct answer is "${correctAns}"</p>
+     <button type="button" class="resultBtn">View Results</button>
+   </div>`);
+   handleResults();
+  console.log('`lastAnswerFeedbackIncorrect` ran');
 }
 
 //change question number
 function changeQNumber(){
- qNum ++;
  $('.qNum').text(qNum + 1);
+ console.log('`changeQNumber` ran');
 }
 
 
@@ -117,35 +211,37 @@ function changeQNumber(){
 function incScore(){
   score ++;
   $('.score').text(score);
+  console.log('`incScore` ran');
 }
 
 //render results post-quiz
 function renderResult(){
-  if(score = 5){
-    //you got everything right
-  }
-  else if(score >= 3){
-    //you passed
+  if(score >= 3){
+    $('.answerForm').html(`
+      <div class="result">
+        <p>Congratulations, you passed! You got ${score}/5 questions right!</p>
+        <div class="startQuiz">
+          <button type="button" class="startBtn">Restart Quiz</button>
+        </div>
+      </div>`);
   }
   else{
-    //you failed
+    $('.answerForm').html(`
+      <div class="result">
+        <p>Sorry, you failed! You got ${score}/5 questions right.</p>
+        <div class="startQuiz">
+          <button type="button" class="startBtn">Restart Quiz</button>
+        </div>
+      </div>`);
   }
-}
-
-//render next question after user clicks 'next'
-function renderNextQuestion(){
-  $('main').on('click', '.nextQ', function(event){
-    changeQNumber();
-    renderQuestion();
-    handleSubmit();
-  });
+  console.log('`renderResult` ran');
 }
 
 //begin quiz
 function startQuiz(){
   $('.startQuiz').on('click', '.startBtn', function(event){
     $('.startQuiz').remove();
-    console.log('startQuiz ran');
+    begun = true;
     //$('.answerForm').css();
     changeQNumber();
     renderQuestion();
@@ -157,7 +253,6 @@ function createQuiz(){
   startQuiz();
   renderQuestion();
   handleSubmit();
-  renderNextQuestion();
 }
 
 $(createQuiz);
