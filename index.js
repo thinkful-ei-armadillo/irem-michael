@@ -100,11 +100,6 @@ function genQuestion(){
           </form>
       </div>`;
   }
-  else if(begun && qNum === (STORE.length - 1)){
-    renderResult();
-    $('.qNum').text(5);
-  }
-  //console.log('`genQuestion` ran');
 }
 
 //event handler
@@ -133,7 +128,6 @@ function handleSubmit(){
         lastAnswerFeedbackIncorrect();
       }
     }
-    console.log('`handleSubmit` ran');
   });
 }
 
@@ -142,7 +136,6 @@ function handleNextQ(){
   $('.answerForm').on('click', '.nextQ', function(event){
     event.preventDefault();
     renderQuestion();
-    console.log('`handleNextQ` ran');
   });
 }
 
@@ -151,7 +144,6 @@ function handleResults(){
   $('.answerForm').on('click', '.resultBtn', function(event){
     event.preventDefault();
     renderResult();
-    console.log('`handleResults` ran');
   });
 }
 function handleRestart(){
@@ -160,7 +152,6 @@ function handleRestart(){
     qNum = 0;
     score =0;
     renderQuestion();
-    console.log('`handleRestart` ran');
   });
 }
 
@@ -172,7 +163,6 @@ function answerFeedbackCorrect(){
      <p>Correct!</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
-  console.log('`answerFeedbackCorrect` ran');
 }
 
 function answerFeedbackIncorrect(){
@@ -182,7 +172,6 @@ function answerFeedbackIncorrect(){
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
-   console.log('`answerFeedbackIncorrect` ran');
 }
 
 function lastAnswerFeedbackCorrect(){
@@ -192,7 +181,6 @@ function lastAnswerFeedbackCorrect(){
      <p>Correct!</p>
      <button type="button" class="resultBtn">View Results</button>
    </div>`);
-  console.log('`lastAnswerFeedbackCorrect` ran');
 }
 
 function lastAnswerFeedbackIncorrect(){
@@ -202,7 +190,6 @@ function lastAnswerFeedbackIncorrect(){
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="resultBtn">View Results</button>
    </div>`);
-  console.log('`lastAnswerFeedbackIncorrect` ran');
 }
 
 //change question number
@@ -234,7 +221,6 @@ function renderResult(){
           <button type="button" class="startBtn">Restart Quiz</button>
       </div>`);
   }
-  console.log('`renderResult` ran');
 }
 
 //begin quiz
