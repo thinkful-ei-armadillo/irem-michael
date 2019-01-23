@@ -91,10 +91,12 @@ function genQuestion(){
     return `
     <div class="progress">
       <ul>
-        <li>Question: <span class="qNum">${STATE.qNum + 1}</span>/${STATE.totalQ}</li>
+        <li>Question: <span class="qNum">${STATE.qNum + 1}</span>/${STATE.totalQ} | </li>
         <li>Score: <span class="score">${STATE.score}</span></li>
       </ul>
     </div>
+    <br>
+    <br>
     <div class="question">
       <h2>${DATA[STATE.qNum].question}</h2>
         <form class ="questionForm">
