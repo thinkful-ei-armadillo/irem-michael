@@ -100,28 +100,32 @@ function genQuestion(){
     <div class="question">
       <h2>${DATA[STATE.qNum].question}</h2>
         <form class ="questionForm">
+        <span class ="ansOpt">
           <label class="option">
             <input type="radio" value="${DATA[STATE.qNum].answers[0]}" name="answer" required>
-              <span>${DATA[STATE.qNum].answers[0]}</span>
+              ${DATA[STATE.qNum].answers[0]}
           </label>
-          <br>
+        </span>
+        <span class ="ansOpt">
           <label class="option">
             <input type="radio" value="${DATA[STATE.qNum].answers[1]}" name="answer" required>
-              <span>${DATA[STATE.qNum].answers[1]}</span>
+            ${DATA[STATE.qNum].answers[1]}
           </label>
-          <br>
+        </span>
+        <span class ="ansOpt">
           <label class="option">
             <input type="radio" value="${DATA[STATE.qNum].answers[2]}" name="answer" required>
-                <span>${DATA[STATE.qNum].answers[2]}</span>
+            ${DATA[STATE.qNum].answers[2]}
           </label>
-          <br>
+        </span>
+        <span class ="ansOpt">
           <label class="option">
-            <input type="radio" value="${DATA[STATE.qNum].answers[3]}" name="answer" required>
-                <span>${DATA[STATE.qNum].answers[3]}</span>
+            <input type="radio" value="${DATA[STATE.qNum].answers[3]}" name="answer" required>${DATA[STATE.qNum].answers[3]}
           </label>
-          <br>
-          <button type="submit" class="button submitAnswer">Submit</button>
-          </form>
+        </span>
+        <br>
+        <button type="submit" class="button submitAnswer">Submit</button>
+        </form>
       </div>`;
   }
 }

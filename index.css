@@ -30,7 +30,8 @@ h1{
     border: 0.25em solid gray;
     margin: auto;
     text-align: center;
-    border-radius: 25%;
+    border-radius: 2%;
+    width: 50%;
 }
 
 .progress{
@@ -49,13 +50,12 @@ ul li{
     width: 50%;
 }
 
-.option{
+.ansOpt {
     text-align: center;
-    background-color: #ffffff;
+    background-color: #a6a6a6;
+    padding: 0.25em;
     border: 2px solid gray;
-    width: 400px;
-}
-
-.submitAnswer{
-    padding-top: 5px;
+    border-radius: 2%;
+    width: 50%;
+    display: inline-block;
 }
