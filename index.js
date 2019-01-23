@@ -2,74 +2,74 @@
 
 const DATA = [
   {
-    question: 'Question 1?',
+    question: 'How many different types of coats do dachshunds have?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      '1',
+      '2',
+      '3',
+      '4'
       ],
-    correctAns: 'ans1'
+    correctAns: '3'
   },
   {
-    question: 'Question 2?',
+    question: 'How much does a dachshund usually weigh?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      '10 lbs',
+      '20 lbs',
+      '35 lbs',
+      '50 lbs'
       ],
-    correctAns: 'ans1'
+    correctAns: '35 lbs'
   },
   {
-    question: 'Question 3?',
+    question: 'What was the original purpose of breeding dachshunds?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      'Hunting',
+      'Herding',
+      'Domestication',
+      'Racing'
       ],
-    correctAns: 'ans1'
+    correctAns: 'Hunting'
   },
   {
-    question: 'Question 4?',
+    question: 'What did the American Kennel Club rename the dachshund breed to during WWI?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      'Liberty Pups',
+      'Badger Dogs',
+      'German Hound',
+      'Hot Dogs'
       ],
-    correctAns: 'ans1'
+    correctAns: 'Badger Dogs'
   },
   {
-    question: 'Question 5?',
+    question: 'How popular are dachshunds in the United States?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      '8th',
+      '11th',
+      '16th',
+      '23rd'
       ],
-    correctAns: 'ans1'
+    correctAns: '11th'
   },
   {
-    question: 'Question 6?',
+    question: 'Where was the dachshund used as a mascot?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      'The First Formula 1 Race',
+      'An Early MLB Team',
+      'Boston University',
+      'The 1972 Munich Olympic Games'
       ],
-    correctAns: 'ans1'
+    correctAns: 'The 1972 Munich Olympic Games'
   },
   {
-    question: 'Question 7?',
+    question: 'What fast food was named after the dachshund?',
     answers: [
-      'ans1',
-      'ans2',
-      'ans3',
-      'ans4'
+      'Kielbasa',
+      'Corn Dogs',
+      'Hot Dogs',
+      'Wienerwald'
       ],
-    correctAns: 'ans1'
+    correctAns: 'Hot Dogs'
   }
 ];
 
@@ -99,11 +99,12 @@ function genQuestion(){
     <br>
     <div class="question">
       <h2>${DATA[STATE.qNum].question}</h2>
+      <br>
         <form class ="questionForm">
         <span class ="ansOpt">
           <label class="option">
             <input type="radio" value="${DATA[STATE.qNum].answers[0]}" name="answer" required>
-              ${DATA[STATE.qNum].answers[0]}
+            ${DATA[STATE.qNum].answers[0]}
           </label>
         </span>
         <span class ="ansOpt">
@@ -120,10 +121,10 @@ function genQuestion(){
         </span>
         <span class ="ansOpt">
           <label class="option">
-            <input type="radio" value="${DATA[STATE.qNum].answers[3]}" name="answer" required>${DATA[STATE.qNum].answers[3]}
+            <input type="radio" value="${DATA[STATE.qNum].answers[3]}" name="answer" required>
+            ${DATA[STATE.qNum].answers[3]}
           </label>
         </span>
-        <br>
         <button type="submit" class="button submitAnswer">Submit</button>
         </form>
       </div>`;
@@ -193,8 +194,9 @@ function answerFeedbackCorrect(){
   let correctAns = `${DATA[STATE.qNum].correctAns}`;
   $('.quizStage').html(`
    <div class="feedback">
-     <p>Correct!</p>
-     <button type="button" class="button nextQ">Next Question</button>
+    <br>
+    <h2>Correct!</h2>
+    <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
 
@@ -202,7 +204,8 @@ function answerFeedbackIncorrect(){
  let correctAns = `${DATA[STATE.qNum].correctAns}`;
  $('.quizStage').html(`
    <div class="feedback">
-     <p>Incorrect! The correct answer is "${correctAns}"</p>
+     <br>
+     <h2>Incorrect! The correct answer is "${correctAns}".</h2>
      <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
@@ -211,7 +214,8 @@ function lastAnswerFeedbackCorrect(){
   let correctAns = `${DATA[STATE.qNum].correctAns}`;
   $('.quizStage').html(`
    <div class="feedback">
-     <p>Correct!</p>
+     <br>
+     <h2>Correct!</h2>
      <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
@@ -220,7 +224,8 @@ function lastAnswerFeedbackIncorrect(){
   let correctAns = `${DATA[STATE.qNum].correctAns}`;
   $('.quizStage').html(`
    <div class="feedback">
-     <p>Incorrect! The correct answer is "${correctAns}"</p>
+     <br>
+     <h2>Incorrect! The correct answer is "${correctAns}".</h2>
      <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
@@ -241,14 +246,16 @@ function renderResult(){
   if(STATE.score >= (STATE.totalQ / 2)){
     $('.quizStage').html(`
       <div class="result">
-        <p>Congratulations, you passed! You got ${STATE.score}/${STATE.totalQ} questions right!</p>
+        <br>
+        <h2>Congratulations, you passed! You got ${STATE.score}/${STATE.totalQ} questions right!</h2>
           <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }
   else{
     $('.quizStage').html(`
       <div class="result">
-        <p>Sorry, you failed! You got ${STATE.score}/${STATE.totalQ} questions right.</p>
+        <br>
+        <h2>Sorry, you failed! You got ${STATE.score}/${STATE.totalQ} questions right.</h2>
           <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }

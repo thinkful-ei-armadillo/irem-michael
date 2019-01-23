@@ -12,7 +12,9 @@ body{
     padding-top: 1em;
     border: 0.25em solid gray;
     border-radius: 1%;
-    margin: auto;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 
@@ -27,8 +29,9 @@ h1{
 .button{
     background-color: lightgray;
     padding: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     border: 0.25em solid gray;
-    margin: auto;
     text-align: center;
     border-radius: 2%;
     width: 50%;
@@ -47,15 +50,29 @@ ul li{
 }
 
 .questionForm{
-    width: 50%;
+    text-align: center;
 }
 
 .ansOpt {
-    text-align: center;
+    text-align: left;
     background-color: #a6a6a6;
     padding: 0.25em;
     border: 2px solid gray;
     border-radius: 2%;
     width: 50%;
     display: inline-block;
+}
+
+@media screen and (max-width: 570px){
+    .container{
+        width: 100%;
+        margin-top: auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+    }
+
+    .ansOpt{
+        width: 80%;
+    }
 }
