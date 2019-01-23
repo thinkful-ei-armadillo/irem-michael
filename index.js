@@ -113,8 +113,8 @@ function handleSubmit(){
     event.preventDefault();
     let selected = $('input:checked');
     let guess = selected.val();
-    let correctAnswer = `${STORE[qNum].correctAns}`;
-    if(qNum < 4){
+    let correctAnswer = STORE[qNum].correctAns;
+    if(qNum < (STORE.length -1)){
       if(guess === correctAnswer){
         answerFeedbackCorrect();
         incScore();
@@ -172,7 +172,6 @@ function answerFeedbackCorrect(){
      <p>Correct!</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
-   handleNextQ();
   console.log('`answerFeedbackCorrect` ran');
 }
 
@@ -183,7 +182,6 @@ function answerFeedbackIncorrect(){
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="nextQ">Next Question</button>
    </div>`);
-   handleNextQ();
    console.log('`answerFeedbackIncorrect` ran');
 }
 
@@ -194,7 +192,6 @@ function lastAnswerFeedbackCorrect(){
      <p>Correct!</p>
      <button type="button" class="resultBtn">View Results</button>
    </div>`);
-   handleResults();
   console.log('`lastAnswerFeedbackCorrect` ran');
 }
 
@@ -205,7 +202,6 @@ function lastAnswerFeedbackIncorrect(){
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="resultBtn">View Results</button>
    </div>`);
-   handleResults();
   console.log('`lastAnswerFeedbackIncorrect` ran');
 }
 
@@ -214,7 +210,6 @@ function changeQNumber(){
  $('.qNum').text(qNum + 1);
  console.log('`changeQNumber` ran');
 }
-
 
 //increment score if correct answer
 function incScore(){
@@ -259,6 +254,8 @@ function createQuiz(){
   renderQuestion();
   handleSubmit();
   handleRestart();
+  handleResults();
+  handleNextQ();
 }
 
 $(createQuiz);
