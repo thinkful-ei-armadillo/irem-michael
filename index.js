@@ -118,7 +118,7 @@ function genQuestion(){
                 <span>${DATA[STATE.qNum].answers[3]}</span>
           </label>
           <br>
-          <button type="submit" class="submitAnswer">Submit</button>
+          <button type="submit" class="button submitAnswer">Submit</button>
           </form>
       </div>`;
   }
@@ -188,7 +188,7 @@ function answerFeedbackCorrect(){
   $('.quizStage').html(`
    <div class="feedback">
      <p>Correct!</p>
-     <button type="button" class="nextQ">Next Question</button>
+     <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
 
@@ -197,7 +197,7 @@ function answerFeedbackIncorrect(){
  $('.quizStage').html(`
    <div class="feedback">
      <p>Incorrect! The correct answer is "${correctAns}"</p>
-     <button type="button" class="nextQ">Next Question</button>
+     <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
 
@@ -206,7 +206,7 @@ function lastAnswerFeedbackCorrect(){
   $('.quizStage').html(`
    <div class="feedback">
      <p>Correct!</p>
-     <button type="button" class="resultBtn">View Results</button>
+     <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
 
@@ -215,7 +215,7 @@ function lastAnswerFeedbackIncorrect(){
   $('.quizStage').html(`
    <div class="feedback">
      <p>Incorrect! The correct answer is "${correctAns}"</p>
-     <button type="button" class="resultBtn">View Results</button>
+     <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
 
@@ -236,14 +236,14 @@ function renderResult(){
     $('.quizStage').html(`
       <div class="result">
         <p>Congratulations, you passed! You got ${STATE.score}/${STATE.totalQ} questions right!</p>
-          <button type="button" class="startBtn">Restart Quiz</button>
+          <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }
   else{
     $('.quizStage').html(`
       <div class="result">
         <p>Sorry, you failed! You got ${STATE.score}/${STATE.totalQ} questions right.</p>
-          <button type="button" class="startBtn">Restart Quiz</button>
+          <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }
 }
