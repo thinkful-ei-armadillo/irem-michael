@@ -135,8 +135,7 @@ function genQuestion(){
 function handleSubmit(){
   $('.quizStage').on('submit', '.questionForm', function(event){
     event.preventDefault();
-    let selected = $('input:checked');
-    let guess = selected.val();
+    let guess = $('input:checked').val();
     let correctAnswer = DATA[STATE.qNum].correctAns;
     if(STATE.qNum < (DATA.length -1)){
       if(guess === correctAnswer){
@@ -196,6 +195,7 @@ function answerFeedbackCorrect(){
    <div class="feedback">
     <br>
     <h2>Correct!</h2>
+    <img src ="https://i.pinimg.com/originals/d3/12/c5/d312c5a4cc1a3cb67b09c9b31703c278.jpg" alt="smiling Daschund">
     <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
@@ -206,6 +206,7 @@ function answerFeedbackIncorrect(){
    <div class="feedback">
      <br>
      <h2>Incorrect! The correct answer is "${correctAns}".</h2>
+     <img src ="https://i.pinimg.com/originals/cc/5c/26/cc5c266fca6cc71754049eab8c22ea34.jpg" alt="sad Daschund">
      <button type="button" class="button nextQ">Next Question</button>
    </div>`);
 }
@@ -216,6 +217,7 @@ function lastAnswerFeedbackCorrect(){
    <div class="feedback">
      <br>
      <h2>Correct!</h2>
+     <img src ="https://i.pinimg.com/originals/d3/12/c5/d312c5a4cc1a3cb67b09c9b31703c278.jpg" alt="smiling Daschund">
      <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
@@ -226,6 +228,7 @@ function lastAnswerFeedbackIncorrect(){
    <div class="feedback">
      <br>
      <h2>Incorrect! The correct answer is "${correctAns}".</h2>
+     <img src ="https://i.pinimg.com/originals/cc/5c/26/cc5c266fca6cc71754049eab8c22ea34.jpg" alt="sad Daschund">
      <button type="button" class="button resultBtn">View Results</button>
    </div>`);
 }
@@ -248,7 +251,8 @@ function renderResult(){
       <div class="result">
         <br>
         <h2>Congratulations, you passed! You got ${STATE.score}/${STATE.totalQ} questions right!</h2>
-          <button type="button" class="button startBtn">Restart Quiz</button>
+        <img src ="https://i.pinimg.com/originals/d3/12/c5/d312c5a4cc1a3cb67b09c9b31703c278.jpg" alt="smiling Daschund"> 
+        <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }
   else{
@@ -256,7 +260,8 @@ function renderResult(){
       <div class="result">
         <br>
         <h2>Sorry, you failed! You got ${STATE.score}/${STATE.totalQ} questions right.</h2>
-          <button type="button" class="button startBtn">Restart Quiz</button>
+        <img src ="https://i.pinimg.com/originals/cc/5c/26/cc5c266fca6cc71754049eab8c22ea34.jpg" alt="sad Daschund">
+        <button type="button" class="button startBtn">Restart Quiz</button>
       </div>`);
   }
 }
