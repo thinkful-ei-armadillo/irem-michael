@@ -1,6 +1,6 @@
 'use strict';
 
-const STORE = [
+const DATA = [
   {
     question: 'Question 1?',
     answers: [
@@ -50,50 +50,72 @@ const STORE = [
       'ans4'
       ],
     correctAns: 'ans1'
+  },
+  {
+    question: 'Question 6?',
+    answers: [
+      'ans1',
+      'ans2',
+      'ans3',
+      'ans4'
+      ],
+    correctAns: 'ans1'
+  },
+  {
+    question: 'Question 7?',
+    answers: [
+      'ans1',
+      'ans2',
+      'ans3',
+      'ans4'
+      ],
+    correctAns: 'ans1'
   }
 ];
 
-let qNum = 0;
-let score = 0;
-let begun = false;
+const STATE = {
+  qNum: 0,
+  totalQ: DATA.length,
+  score: 0,
+  begun: false
+};
 
 //render question
 function renderQuestion(){
-  $('.answerForm').html(genQuestion());
-  //console.log('`renderQuestion` ran');
+  $('.quizStage').html(genQuestion());
 }
 
 //gen question html
 function genQuestion(){
-  if(begun && qNum < STORE.length){
+  if(STATE.begun && STATE.qNum < DATA.length){
     return `
     <div class="progress">
       <ul>
-        <li>Question: <span class="qNum">${qNum + 1}</span>/5</li>
-        <li>Score: <span class="score">${score}</span></li>
+        <li>Question: <span class="qNum">${STATE.qNum + 1}</span>/${STATE.totalQ}</li>
+        <li>Score: <span class="score">${STATE.score}</span></li>
       </ul>
     </div>
     <div class="question">
-      <h2>${STORE[qNum].question}</h2>
-        <form class ="question-form">
+      <h2>${DATA[STATE.qNum].question}</h2>
+        <form class ="questionForm">
           <label class="option">
-            <input type="radio" value="${STORE[qNum].answers[0]}" name="answer" required>
-              <span>${STORE[qNum].answers[0]}</span>
+            <input type="radio" value="${DATA[STATE.qNum].answers[0]}" name="answer" required>
+              <span>${DATA[STATE.qNum].answers[0]}</span>
           </label>
           <br>
           <label class="option">
-            <input type="radio" value="${STORE[qNum].answers[1]}" name="answer" required>
-              <span>${STORE[qNum].answers[1]}</span>
+            <input type="radio" value="${DATA[STATE.qNum].answers[1]}" name="answer" required>
+              <span>${DATA[STATE.qNum].answers[1]}</span>
           </label>
           <br>
           <label class="option">
-            <input type="radio" value="${STORE[qNum].answers[2]}" name="answer" required>
-                <span>${STORE[qNum].answers[2]}</span>
+            <input type="radio" value="${DATA[STATE.qNum].answers[2]}" name="answer" required>
+                <span>${DATA[STATE.qNum].answers[2]}</span>
           </label>
           <br>
           <label class="option">
-            <input type="radio" value="${STORE[qNum].answers[3]}" name="answer" required>
-                <span>${STORE[qNum].answers[3]}</span>
+            <input type="radio" value="${DATA[STATE.qNum].answers[3]}" name="answer" required>
+                <span>${DATA[STATE.qNum].answers[3]}</span>
           </label>
           <br>
           <button type="submit" class="submitAnswer">Submit</button>
@@ -102,14 +124,14 @@ function genQuestion(){
   }
 }
 
-//event handler
+//event handler for answer guesses
 function handleSubmit(){
-  $('.answerForm').on('submit', '.question-form', function(event){
+  $('.quizStage').on('submit', '.questionForm', function(event){
     event.preventDefault();
     let selected = $('input:checked');
     let guess = selected.val();
-    let correctAnswer = STORE[qNum].correctAns;
-    if(qNum < (STORE.length -1)){
+    let correctAnswer = DATA[STATE.qNum].correctAns;
+    if(STATE.qNum < (DATA.length -1)){
       if(guess === correctAnswer){
         answerFeedbackCorrect();
         incScore();
@@ -117,7 +139,7 @@ function handleSubmit(){
       else{
         answerFeedbackIncorrect();
       }
-      qNum++;
+      STATE.qNum += 1;
     }
     else{
       if(guess === correctAnswer){
@@ -131,9 +153,9 @@ function handleSubmit(){
   });
 }
 
-//event handler for answer pg
+//event handler for answer page
 function handleNextQ(){
-  $('.answerForm').on('click', '.nextQ', function(event){
+  $('.quizStage').on('click', '.nextQ', function(event){
     event.preventDefault();
     renderQuestion();
   });
@@ -141,24 +163,29 @@ function handleNextQ(){
 
 //event handler for final q
 function handleResults(){
-  $('.answerForm').on('click', '.resultBtn', function(event){
+  $('.quizStage').on('click', '.resultBtn', function(event){
     event.preventDefault();
     renderResult();
   });
 }
+
+//event handler for restart btn
 function handleRestart(){
-  $('.answerForm').on('click', '.startBtn', function(event){
+  $('.quizStage').on('click', '.startBtn', function(event){
     event.preventDefault();
-    qNum = 0;
-    score =0;
+    $('.result').remove();
+    $('.startQuiz').show();
+    STATE.begun = false;
+    STATE.qNum = 0;
+    STATE.score = 0;
     renderQuestion();
   });
 }
 
 //answer feedback
 function answerFeedbackCorrect(){
-  let correctAns = `${STORE[qNum].correctAns}`;
-  $('.answerForm').html(`
+  let correctAns = `${DATA[STATE.qNum].correctAns}`;
+  $('.quizStage').html(`
    <div class="feedback">
      <p>Correct!</p>
      <button type="button" class="nextQ">Next Question</button>
@@ -166,8 +193,8 @@ function answerFeedbackCorrect(){
 }
 
 function answerFeedbackIncorrect(){
- let correctAns = `${STORE[qNum].correctAns}`;
- $('.answerForm').html(`
+ let correctAns = `${DATA[STATE.qNum].correctAns}`;
+ $('.quizStage').html(`
    <div class="feedback">
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="nextQ">Next Question</button>
@@ -175,8 +202,8 @@ function answerFeedbackIncorrect(){
 }
 
 function lastAnswerFeedbackCorrect(){
-  let correctAns = `${STORE[qNum].correctAns}`;
-  $('.answerForm').html(`
+  let correctAns = `${DATA[STATE.qNum].correctAns}`;
+  $('.quizStage').html(`
    <div class="feedback">
      <p>Correct!</p>
      <button type="button" class="resultBtn">View Results</button>
@@ -184,8 +211,8 @@ function lastAnswerFeedbackCorrect(){
 }
 
 function lastAnswerFeedbackIncorrect(){
-  let correctAns = `${STORE[qNum].correctAns}`;
-  $('.answerForm').html(`
+  let correctAns = `${DATA[STATE.qNum].correctAns}`;
+  $('.quizStage').html(`
    <div class="feedback">
      <p>Incorrect! The correct answer is "${correctAns}"</p>
      <button type="button" class="resultBtn">View Results</button>
@@ -194,30 +221,28 @@ function lastAnswerFeedbackIncorrect(){
 
 //change question number
 function changeQNumber(){
- $('.qNum').text(qNum + 1);
- console.log('`changeQNumber` ran');
+ $('.qNum').text(STATE.qNum + 1);
 }
 
 //increment score if correct answer
 function incScore(){
-  score ++;
-  $('.score').text(score);
-  console.log('`incScore` ran');
+  STATE.score += 1;
+  $('.score').text(STATE.score);
 }
 
 //render results post-quiz
 function renderResult(){
-  if(score >= 3){
-    $('.answerForm').html(`
+  if(STATE.score >= (STATE.totalQ / 2)){
+    $('.quizStage').html(`
       <div class="result">
-        <p>Congratulations, you passed! You got ${score}/5 questions right!</p>
+        <p>Congratulations, you passed! You got ${STATE.score}/${STATE.totalQ} questions right!</p>
           <button type="button" class="startBtn">Restart Quiz</button>
       </div>`);
   }
   else{
-    $('.answerForm').html(`
+    $('.quizStage').html(`
       <div class="result">
-        <p>Sorry, you failed! You got ${score}/5 questions right.</p>
+        <p>Sorry, you failed! You got ${STATE.score}/${STATE.totalQ} questions right.</p>
           <button type="button" class="startBtn">Restart Quiz</button>
       </div>`);
   }
@@ -226,9 +251,8 @@ function renderResult(){
 //begin quiz
 function startQuiz(){
   $('.startQuiz').on('click', '.startBtn', function(event){
-    $('.startQuiz').remove();
-    begun = true;
-    //$('.answerForm').css();
+    $('.startQuiz').hide();
+    STATE.begun = true;
     changeQNumber();
     renderQuestion();
   });
